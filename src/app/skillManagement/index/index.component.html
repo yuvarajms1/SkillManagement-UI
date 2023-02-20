@@ -1,0 +1,208 @@
+
+<div class="container">
+	<div id="contentBox" aria-live="polite" aria-relevant="all" role="main">
+
+	</div>
+
+	<div class="row">
+		<div class="col-sm-8">
+			<div id="SearchBoxDiv">
+				<form [formGroup]="form" (ngSubmit)="onSubmit()">
+					<div style="padding-bottom:5px"></div>
+					<table style="margin-top: 112px;">
+						<tbody>
+							<tr>
+								<td>
+									<input type="text" placeholder="Enter skills to search" style="width:350px" formControlName="searchText"
+												 class="form-control"
+												 [ngClass]="{ 'is-invalid': submitted && f['searchText'].errors }" />
+
+									<div *ngIf="submitted && f['searchText'].errors" class="invalid-feedback">
+										<div *ngIf="f['searchText'].errors['required']">Enter skills to search</div>
+										<div *ngIf="f['searchText'].errors['minlength']">
+											To search, a word should be of 3 letters or more.
+										</div>
+									</div>
+									<div style="padding-bottom:10px"></div>
+									<button type="submit" class="btn btn-primary">Search Skills</button>
+									<button type="button" (click)="onReset()" class="btn btn-warning float-right">
+										Reset
+									</button>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div style="padding-bottom:15px"></div>
+
+	<table style="width: 100%;" class="table table-bordered" *ngIf="showdefault">
+		<tbody>
+			<tr>
+				<th style="width: 10%;" scope="row">Employee</th>
+				<td colspan="4"><span class="ms-entity-resolved" title="Yuvaraj S">Yuvaraj S</span></td>
+			</tr>
+			<tr>
+				<th scope="row">Practice</th>
+				<td colspan="4">
+					<select id="slctGroupValues" (change)="handlePracticeChange($event)" style="width: auto"  [(ngModel)]="defaultpracticeId">
+						<option value="0" selected="selected">--Select--</option>
+						<option *ngFor='let itempractice of practices; let i=index;' [value]="itempractice.id"
+										[selected]="itempractice.selected">
+							{{itempractice.practiceName}}
+						</option>
+					</select>
+				</td>
+
+			</tr>
+			<tr>
+				<th scope="row">Category</th>
+				<td>
+					<select id="slctGroupValues" style="width: auto" [disabled]="categoryDisabled" [(ngModel)]="defaultCategoryId"
+									(change)="handleCategoryChange($event)">
+						<option value="0" selected="selected">--Select--</option>
+						<option *ngFor='let itemCategory of categories; let i=index;' [value]="itemCategory.id"
+										[selected]="itemCategory.selected">
+							{{itemCategory.categoryName}}
+						</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">Tech Stack</th>
+				<td colspan="4">
+					<table id="slctSkillsValues">
+						<tbody>
+							<tr *ngFor='let ts of technology;'>
+								<td>
+									<input type="checkbox" (change)="ts.selected=!ts.selected; ts.selectedProficiencyLevel=0"
+												 [value]="ts.id" [checked]="ts.selected">
+								</td>
+								<td><label for="check_395">{{ts.technologyName}}</label></td>
+								<td class="checkBox_list" *ngFor='let level of proficiencyLevel;'>
+									<span class="checkBox_list_span" *ngIf="ts.selectedProficiencyLevel == level.id">
+										<input (change)="ts.selectedProficiencyLevel = level.id" [name]="ts.id"
+													 type="radio" [disabled]="!ts.selected" [value]="level.id" checked><span class="checkBox_list_span_name">{{level.description}}</span>
+									</span>
+									<span class="checkBox_list_span" *ngIf="ts.selectedProficiencyLevel != level.id">
+										<input (change)="ts.selectedProficiencyLevel =level.id" type="radio"
+													 [disabled]="!ts.selected" [value]="level.id"><span class="checkBox_list_span_name">{{level.description}}</span>
+									</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+
+			</tr>
+		</tbody>
+	</table>
+
+
+	<div id="SearchDiv" *ngIf="isSearchVisible && searchTechStack.length>0">
+		<table style="width:100% ;">
+
+			<tr>
+				<td style="width:20% ;">
+					<label id="Group"><b>Employee</b></label>
+				</td>
+				<td colspan="6">
+					Yuvaraj S
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="SearchResultDiv" *ngIf="isSearchVisible && searchTechStack.length>0">
+		<table style="width:100% ;">
+			<tr>
+				<td colspan="7">
+					<span *ngFor='let skl of searchTechStack; let i=index;'>
+						<table style="width: 100%;">
+							<tr>
+								<td class="skillborder" style="width:20% ;">
+									<b>
+										<label value="23"
+													 text="App Dev"><span></span>Skills Group: </label>
+									</b>
+								</td>
+								<td class="skillborder" colspan="6">
+									<label id="23" value="23"
+												 text="23">{{skl.practicesName}}</label>
+								</td>
+							</tr>
+							<tr>
+								<td class="skillborder">
+									<b>
+										<label value="23" text="App Dev">
+											<span></span>Category:
+										</label>
+									</b>
+								</td>
+								<td class="skillborder" colspan="6">
+									<label id="23" value="23"
+												 text="23">{{skl.categoriesName}}</label>
+								</td>
+							</tr>
+							<tr>
+								<td class="skillborder">
+									<b>
+										<label value="23" text="App Dev">
+											<span></span>Skills:
+										</label>
+									</b>
+								</td>
+								<td class="skillborder" colspan="6">
+									<table style="border: 0; width:100%" *ngFor='let ts of skl.technologyStack let i=index;'>
+										<tr style="border: 0;">
+											<td style="border: 0; width:2%">
+												<input type="checkbox"
+															 (change)="ts.selected=!ts.selected; ts.selectedProficiencyLevel=0" [checked]="ts.selected">
+											</td>
+											<td style="border: 0; width:20%">{{ts.technologyName}}</td>
+											<td style="border: 0;" class="checkBox_list" *ngFor='let level of proficiencyLevel;'>
+												<span class="checkBox_list_span"
+															*ngIf="ts.selectedProficiencyLevel == level.id">
+													<input (change)="ts.selectedProficiencyLevel=level.id"
+																 [name]="ts.id" type="radio" [disabled]="!ts.selected"
+																 [value]="level.id" checked><span class="checkBox_list_span_name">{{level.description}}</span>
+												</span>
+												<span class="checkBox_list_span"
+															*ngIf="ts.selectedProficiencyLevel != level.id">
+													<input (change)="ts.selectedProficiencyLevel=level.id" type="radio"
+																 [disabled]="!ts.selected" [value]="level.id"><span class="checkBox_list_span_name">{{level.description}}</span>
+												</span>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<br>
+	<div class="row" >
+		<div class="col-sm-12  align-items-end" style="text-align: right;">
+			<input *ngIf="showdefault" type="button" class="btn btn-primary pull-right" id="btnSave" value="Save" name="Save"
+						 (click)="updateTechSkill()">
+			<input type="button" class="btn btn-primary pull-right" id="btnSave" value="Save" name="Save" *ngIf="isSearchVisible && searchTechStack.length>0"
+						 (click)="saveSkillsOnSearch()">
+
+			<input type="button" class="btn btn-warning float-right pull-right" id="btnCancel" value="Cancel" name="Cancel">
+
+		</div>
+	</div>
+	<table class="" border="0" cellpadding="1" cellspacing="1" *ngIf="isSearchVisible && searchTechStack.length==0 && !showdefault">
+		No Search Results Found
+	</table>
+</div>
+
+
+
+
+

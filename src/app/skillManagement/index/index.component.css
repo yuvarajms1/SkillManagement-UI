@@ -1,0 +1,95 @@
+.btnSearch {
+  background-color: #124b8b;
+  border: 0 solid #dedede;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 13px;
+  padding: 3px;
+  margin-left: 10px;
+}
+
+.checkBox_list_span {
+  margin-left: 10px;
+  ;
+}
+
+.checkBox_list_span_name {
+  margin-left: 5px;
+  ;
+}
+
+#SearchResultDiv td {
+  border: 1px solid gray;
+  padding: 5px;
+}
+
+#SearchResultDiv {
+  width: 100%;
+}
+
+  #SearchResultDiv table {
+    width: 100%;
+  }
+
+#SearchDiv td {
+  border: 1px solid gray;
+  padding: 5px;
+}
+
+#SearchDiv {
+  width: 100%;
+}
+
+  #SearchDiv table {
+    width: 100%;
+  }
+
+
+
+
+.patTrborder {
+  width: 100%;
+}
+
+.overlay {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: #222;
+}
+
+.overlay__inner {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.overlay__content {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.spinner {
+  width: 75px;
+  height: 75px;
+  display: inline-block;
+  border-width: 2px;
+  border-color: rgba(255, 255, 255, 0.05);
+  border-top-color: #fff;
+  animation: spin 1s infinite linear;
+  border-radius: 100%;
+  border-style: solid;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
