@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src\\app"
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\skillManagement"
   ],
-  "SelectedNode": "\\src",
+  "SelectedNode": "\\src\\app\\skillManagement\\skillmanagement-routing.module.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -5,13 +5,14 @@ import {  Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
   
 import { SkillManagement } from './skillmanagement';
-  
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class SkillManagementService {
   
-  private skillManagementAPIUrl = "https://localhost:7208/api";
+  private skillManagementAPIUrl = environment.apiUrl;
     
   /*------------------------------------------
   --------------------------------------------
