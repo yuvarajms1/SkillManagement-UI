@@ -1,16 +1,17 @@
 
-<div class="container">
+<div class="container" style="background-color: #f3f8fb;">
 	<div id="contentBox" aria-live="polite" aria-relevant="all" role="main">
 
 	</div>
-
-	<div class="row">
+	<div>
 		<div class="col-sm-8">
 			<div id="SearchBoxDiv">
 				<form [formGroup]="form" (ngSubmit)="onSubmit()">
 					<div style="padding-bottom:5px"></div>
 					<table style="margin-top: 112px;">
 						<tbody>
+							<tr><td><b>Add New Skills</b></td></tr>
+							<tr><td>&nbsp;</td></tr>
 							<tr>
 								<td>
 									<input type="text" placeholder="Enter skills to search" style="width:350px" formControlName="searchText"
@@ -39,9 +40,9 @@
 	</div>
 	<div style="padding-bottom:15px"></div>
 
-	<table style="width: 100%;" class="table table-bordered" *ngIf="showdefault">
+	<table style="width: 100%;" class="table table-bordered" style="border:1px solid grey" *ngIf="showdefault">
 		<tbody>
-			<tr>
+			<tr style="background-color: #B9E1F5">
 				<th style="width: 10%;" scope="row">Employee</th>
 				<td colspan="4"><span class="ms-entity-resolved" title="Yuvaraj S">Yuvaraj S</span></td>
 			</tr>
@@ -58,7 +59,7 @@
 				</td>
 
 			</tr>
-			<tr>
+			<tr style="background-color: #B9E1F5">
 				<th scope="row">Category</th>
 				<td>
 					<select id="slctGroupValues" style="width: auto" [disabled]="categoryDisabled" [(ngModel)]="defaultCategoryId"
@@ -74,15 +75,15 @@
 			<tr>
 				<th scope="row">Tech Stack</th>
 				<td colspan="4">
-					<table id="slctSkillsValues">
+					<table id="slctSkillsValues" *ngFor='let ts of technology;let innerIndex=index;' >
 						<tbody>
-							<tr *ngFor='let ts of technology;'>
+							<tr  *ngIf='setTrColor(innerIndex)' [style]= "innerSearch"  >
 								<td>
 									<input type="checkbox" (change)="ts.selected=!ts.selected; ts.selectedProficiencyLevel=0"
 												 [value]="ts.id" [checked]="ts.selected">
 								</td>
 								<td><label for="check_395">{{ts.technologyName}}</label></td>
-								<td class="checkBox_list" *ngFor='let level of proficiencyLevel;'>
+					     		<td  *ngFor='let level of proficiencyLevel;'>
 									<span class="checkBox_list_span" *ngIf="ts.selectedProficiencyLevel == level.id">
 										<input (change)="ts.selectedProficiencyLevel = level.id" [name]="ts.id"
 													 type="radio" [disabled]="!ts.selected" [value]="level.id" checked><span class="checkBox_list_span_name">{{level.description}}</span>
@@ -116,19 +117,19 @@
 		</table>
 	</div>
 	<div id="SearchResultDiv" *ngIf="isSearchVisible && searchTechStack.length>0">
-		<table style="width:100% ;">
+		<table style="width:100% ;border:1px solid grey" >
 			<tr>
 				<td colspan="7">
 					<span *ngFor='let skl of searchTechStack; let i=index;'>
 						<table style="width: 100%;">
-							<tr>
+							<tr style="background-color: #B9E1F5">
 								<td class="skillborder" style="width:20% ;">
 									<b>
 										<label value="23"
 													 text="App Dev"><span></span>Skills Group: </label>
 									</b>
 								</td>
-								<td class="skillborder" colspan="6">
+								<td class="skillborder" colspan="6" >
 									<label id="23" value="23"
 												 text="23">{{skl.practicesName}}</label>
 								</td>
@@ -156,7 +157,7 @@
 								</td>
 								<td class="skillborder" colspan="6">
 									<table style="border: 0; width:100%" *ngFor='let ts of skl.technologyStack let i=index;'>
-										<tr style="border: 0;">
+										<tr *ngIf="setTrColor(i)" [style]= "innerSearch" style="border: 0;">
 											<td style="border: 0; width:2%">
 												<input type="checkbox"
 															 (change)="ts.selected=!ts.selected; ts.selectedProficiencyLevel=0" [checked]="ts.selected">
@@ -193,7 +194,7 @@
 			<input type="button" class="btn btn-primary pull-right" id="btnSave" value="Save" name="Save" *ngIf="isSearchVisible && searchTechStack.length>0"
 						 (click)="saveSkillsOnSearch()">
 
-			<input type="button" class="btn btn-warning float-right pull-right" id="btnCancel" value="Cancel" name="Cancel">
+			<input type="button" class="btn btn-warning float-right pull-right" id="btnCancel" value="Cancel" name="Cancel" *ngIf="showdefault" (click)="onReset()">
 
 		</div>
 	</div>

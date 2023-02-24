@@ -41,6 +41,8 @@ export class IndexComponent implements OnInit {
 
   defaultpracticeId = 0;
   defaultCategoryId = 0;
+  innerSearch='';
+  innerGridClass='toast-top-center';
   /*------------------------------------------
   --------------------------------------------
   Created constructor
@@ -123,6 +125,7 @@ export class IndexComponent implements OnInit {
     if (this.validateSkill()) {
       for (let i = 0; i < this.searchTechStack.length; i++) {
         var filterlist = this.searchTechStack[i].technologyStack.filter((x: any) => x.selected);
+        this.searchTechStack[i].employeeName=this.employeeName;
          this.searchTechStack[i].technologyStack = filterlist;
       }
       this.addTechSkill(this.searchTechStack);
@@ -134,7 +137,7 @@ export class IndexComponent implements OnInit {
     var filterTechlist = this.searchTechStack.filter((item: any) => item.technologyStack.some((ts: any) => ts.selected));
 
     if (filterTechlist.length == 0) {
-      this.toastrService.error('Please select atleast one technology and choose corresponding skill level ', 'Validation');
+      this.toastrService.error('Please select atleast one technology and choose corresponding skill level ', 'Validation',{positionClass:this.innerGridClass});
       result = 'Error';
       return false;
     }
@@ -146,7 +149,7 @@ export class IndexComponent implements OnInit {
         var technology = this.searchTechStack[i].technologyStack[j].technologyName;
 
         if ((this.searchTechStack[i].technologyStack[j].selectedProficiencyLevel == 0 || this.searchTechStack[i].technologyStack[j].selectedProficiencyLevel == undefined) && this.searchTechStack[i].technologyStack[j].selected) {
-          this.toastrService.error('Please choose the skill level for the selected Technology ' + technology, 'Validation');
+          this.toastrService.error('Please choose the skill level for the selected Technology ' + technology, 'Validation',{positionClass:this.innerGridClass});
           result = 'Error';
         }
 
@@ -162,7 +165,7 @@ export class IndexComponent implements OnInit {
 
     this.skillManagementService.createSkillMatrixOnSearch(skill)
       .subscribe((searchTechStack) => {
-        this.toastrService.success('Skills Saved Successfully', 'Add Skills');
+        this.toastrService.success('Skills Saved Successfully', 'Add Skills',{positionClass:this.innerGridClass});
         this.onSubmit();
       })
   }
@@ -203,12 +206,12 @@ export class IndexComponent implements OnInit {
 
 
     if (this.defaultpracticeId == 0) {
-      this.toastrService.error('Please select Practice', 'Validation');
+      this.toastrService.error('Please select Practice', 'Validation',{positionClass:this.innerGridClass});
       return false;
     }
 
     if (this.defaultCategoryId == 0) {
-      this.toastrService.error('Please select Category', 'Validation');
+      this.toastrService.error('Please select Category', 'Validation',{positionClass:this.innerGridClass});
       return false;
     }
 
@@ -217,7 +220,7 @@ export class IndexComponent implements OnInit {
       this.technology = filterlist;
       this.skillManagementService.updateSkillMatrix(this.technology)
         .subscribe((data) => {
-          this.toastrService.success('Skills Saved Successfully', 'Add Skills');
+          this.toastrService.success('Skills Saved Successfully', 'Add Skills',{positionClass:this.innerGridClass});
           this.onReset();
         })
     }
@@ -226,16 +229,16 @@ export class IndexComponent implements OnInit {
   validateOnUpdate() {
     var result = '';
     var filterlist = this.technology.filter((x: any) => x.selected);
-
+    
     if (filterlist.length == 0) {
-      this.toastrService.error('Please select atleast one technology and choose corresponding skill level ', 'Validation');
+      this.toastrService.error('Please select atleast one technology and choose corresponding skill level ', 'Validation',{positionClass:this.innerGridClass});
       result = 'Error';
     }
 
     for (let i = 0; i < this.technology.length; i++) {
       var technology = this.technology[i].technologyName;
       if ((this.technology[i].selectedProficiencyLevel == 0 || this.technology[i].selectedProficiencyLevel == undefined) && this.technology[i].selected) {
-        this.toastrService.error('Please choose the skill level for the selected Technology ' + technology, 'Validation');
+        this.toastrService.error('Please choose the skill level for the selected technology ' + technology, 'Validation',{positionClass:this.innerGridClass});
         result = 'Error';
       }
 
@@ -246,5 +249,17 @@ export class IndexComponent implements OnInit {
     }
     else { return true; }
 
+  }
+
+  setTrColor(index:any)
+  {
+    if(index % 2){
+      return this.innerSearch ='background-color: none'
+    }
+    else
+    {
+      return this.innerSearch ='background-color: #DDF1FB;'
+      
+    }
   }
 }

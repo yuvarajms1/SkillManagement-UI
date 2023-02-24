@@ -9,13 +9,13 @@
 }
 
 .checkBox_list_span {
-  margin-left: 10px;
-  ;
+  margin-left: 20px;
 }
 
 .checkBox_list_span_name {
   margin-left: 5px;
-  ;
+ 
+  
 }
 
 #SearchResultDiv td {
@@ -91,5 +91,19 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+#CustomTable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#CustomTable th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+#CustomTable tr:nth-child(odd) {
+  background-color: #DDF1FB
 }
 
