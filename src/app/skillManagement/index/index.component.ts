@@ -173,14 +173,15 @@ export class IndexComponent implements OnInit {
 
     const practiceID = event.target.value;
     this.defaultpracticeId = event.target.value;
+    this.technology = [];
     this.categories = [];
+    this.defaultCategoryId=0;
     if (practiceID == 0) {
       this.categoryDisabled = true;
     } else {
       this.skillManagementService.getAllCategories(practiceID).subscribe((category) => {
         this.categories = category;
         this.categoryDisabled = false;
-
       });
     }
   }
@@ -189,6 +190,7 @@ export class IndexComponent implements OnInit {
     const categoryID = event.target.value;
     this.defaultCategoryId = event.target.value;
     this.technology = [];
+
     if (categoryID == 0) {
     } else {
       this.skillManagementService.getTechnology(categoryID).subscribe((techStacks) => {

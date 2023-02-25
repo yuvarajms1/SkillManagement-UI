@@ -82,7 +82,7 @@
 									<input type="checkbox" (change)="ts.selected=!ts.selected; ts.selectedProficiencyLevel=0"
 												 [value]="ts.id" [checked]="ts.selected">
 								</td>
-								<td><label for="check_395">{{ts.technologyName}}</label></td>
+								<td style="width:160px !important;"><label for="check_395">{{ts.technologyName}}</label></td>
 					     		<td  *ngFor='let level of proficiencyLevel;'>
 									<span class="checkBox_list_span" *ngIf="ts.selectedProficiencyLevel == level.id">
 										<input (change)="ts.selectedProficiencyLevel = level.id" [name]="ts.id"
@@ -92,6 +92,7 @@
 										<input (change)="ts.selectedProficiencyLevel =level.id" type="radio"
 													 [disabled]="!ts.selected" [value]="level.id"><span class="checkBox_list_span_name">{{level.description}}</span>
 									</span>
+									<span style="padding-left: 60px"></span>
 								</td>
 							</tr>
 						</tbody>
