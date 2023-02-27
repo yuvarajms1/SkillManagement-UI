@@ -159,11 +159,11 @@
 								<td class="skillborder" colspan="6">
 									<table style="border: 0; width:100%" *ngFor='let ts of skl.technologyStack let i=index;'>
 										<tr *ngIf="setTrColor(i)" [style]= "innerSearch" style="border: 0;">
-											<td style="border: 0; width:2%">
+											<td style="border:0"> 
 												<input type="checkbox"
 															 (change)="ts.selected=!ts.selected; ts.selectedProficiencyLevel=0" [checked]="ts.selected">
 											</td>
-											<td style="border: 0; width:20%">{{ts.technologyName}}</td>
+											<td style="border:0; width:160px !important;">{{ts.technologyName}}</td>
 											<td style="border: 0;" class="checkBox_list" *ngFor='let level of proficiencyLevel;'>
 												<span class="checkBox_list_span"
 															*ngIf="ts.selectedProficiencyLevel == level.id">
@@ -176,6 +176,7 @@
 													<input (change)="ts.selectedProficiencyLevel=level.id" type="radio"
 																 [disabled]="!ts.selected" [value]="level.id"><span class="checkBox_list_span_name">{{level.description}}</span>
 												</span>
+												<span style="padding-left: 60px"></span>
 											</td>
 										</tr>
 									</table>

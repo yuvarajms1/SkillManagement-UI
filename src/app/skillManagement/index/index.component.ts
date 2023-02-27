@@ -149,7 +149,7 @@ export class IndexComponent implements OnInit {
         var technology = this.searchTechStack[i].technologyStack[j].technologyName;
 
         if ((this.searchTechStack[i].technologyStack[j].selectedProficiencyLevel == 0 || this.searchTechStack[i].technologyStack[j].selectedProficiencyLevel == undefined) && this.searchTechStack[i].technologyStack[j].selected) {
-          this.toastrService.error('Please choose the skill level for the selected Technology ' + technology, 'Validation',{positionClass:this.innerGridClass});
+          this.toastrService.error('Please choose the skill level for the selected technology ' + technology, 'Validation',{positionClass:this.innerGridClass});
           result = 'Error';
         }
 
